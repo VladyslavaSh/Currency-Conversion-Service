@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Flask Bootstrap App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+  </head>
+  <body>
+    <div class="container">
+      <form method="POST">
+    <div class="form-group">
+    <label for="amount">Amount:</label>
+    <input type="number" class="form-control" id="amount" name="amount" required>
+  </div>
+  <div class="form-group">
+    <label for="fromCurrency">From currency:</label>
+    <select class="form-control" id="fromCurrency" name="fromCurrency">
+      {% for currency in currencies %}
+      <option value="{{ currency }}">{{ currency }}</option>
+      {% endfor %}
+    </select>
+  </div><div class="form-group">
+    <label for="toCurrency">To currency:</label>
+    <select class="form-control" id="toCurrency" name="toCurrency">
+      {% for currency in currencies %}
+      <option value="{{ currency }}">{{ currency }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+      {% if context %}
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">Intermediary currency</th>
+          <th scope="col">{{ context.from_currency }} to intermediary</th>
+          <th scope="col">Intermediary to {{ context.to_currency }}</th>
+          <th scope="col">Profit</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for key in context.first_step.keys() %}
+        <tr>
+          <td>{{ key }}</td>
+          <td>{{ context['first_step'][key] }}</td>
+          <td>{{ context['second_step'][key] }}</td>
+          <td>{{ context['brokers_margins'][key] }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+          <div>
+      <p>
+      <span>Best for customer {{ context['customers_best'] }}</span>
+      </p>
+      <p>
+      <span>Best for broker {% for key in context['brokers_best'].keys() %}{{ key }}{% endfor %}</span>
+      </p>
+    </div>
+      {% endif %}
+    </div>
+    <script src="{{ url_for('static', filename='bootstrap.js') }}"></script>
+  </body>
+</html>
