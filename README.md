@@ -8,6 +8,7 @@ The code uses a currency exchange API to obtain the necessary data and performs 
 
 To use the program, execute the app.py file and open the local link http://127.0.0.1:5000 in your browser.
 
-Libraries: requests, numpy, Flask, Flask Bootstrap
 
-Api: https://v6.exchangerate-api.com
+### Libraries: requests, numpy, Flask, Flask Bootstrap
+
+### Api: https://v6.exchangerate-api.com
